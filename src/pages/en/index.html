@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="{{locale}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BaseTwin: open-source digital twin core built on NGSI-LD</title>
+  <meta name="description" content="BaseTwin is an open-source digital twin core for the FIWARE ecosystem. It adds value semantics, workspaces and scenarios, catalog and licences, provenance, models, grids and rasters to an NGSI-LD context broker, behind one API.">
+  {{headLinks}}
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#2563eb">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="BaseTwin">
+  <meta property="og:title" content="BaseTwin: open-source digital twin core built on NGSI-LD">
+  <meta property="og:description" content="The twin services a context broker does not provide: value semantics, workspaces and scenarios, catalog and licences, provenance, models, grids and rasters.">
+  <meta property="og:url" content="{{pageUrl}}">
+  <meta property="og:image" content="{{siteUrl}}/assets/img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="{{base}}assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="{{base}}assets/css/site.css">
+  <script src="{{base}}assets/js/site.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "name": "BaseTwin",
+    "description": "Open-source digital twin core for the FIWARE ecosystem, built on NGSI-LD.",
+    "url": "{{siteUrl}}/",
+    "license": "https://www.apache.org/licenses/LICENSE-2.0",
+    "programmingLanguage": "Python",
+    "version": "{{release.version}}"
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="{{base}}" aria-label="BaseTwin home">
+        <svg class="brand-mark" viewBox="0 0 80 80" aria-hidden="true"><rect x="6" y="24" width="44" height="44" rx="9" fill="currentColor"/><rect x="28" y="10" width="44" height="44" rx="9" fill="none" stroke="currentColor" stroke-width="6"/></svg>
+        <span class="brand-name">Base<span>Twin</span></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav id="site-nav" class="site-nav" aria-label="Main">
+        <a href="#why">Why</a>
+        <a href="#products">Products</a>
+        <a href="#features">Features</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#standards">Standards</a>
+        <a href="#references">References</a>
+        {{languageSwitch}}
+        <a class="button button-small" href="{{links.org}}" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">Open source · Apache-2.0 · Release {{release.version}}</p>
+          <h1>The open-source digital twin core for NGSI-LD</h1>
+          <p class="lead">BaseTwin adds the twin services a context broker does not provide: value semantics, workspaces and scenarios, catalog and licences, provenance, models, grids and rasters. One API, on a laptop, on premises or in the cloud.</p>
+          <div class="actions">
+            <a class="button" href="#why">Read the overview</a>
+            <!-- if:coreOpen -->
+            <a class="button button-ghost" href="{{links.core}}" rel="noopener">View on GitHub</a>
+            <!-- else -->
+            <a class="button button-ghost" href="{{links.org}}" rel="noopener">GitHub organisation</a>
+            <!-- endif -->
+          </div>
+          <!-- if:coreOpen -->
+          <!-- else -->
+          <p class="hero-note">The source repository is opening soon. Follow the organisation on GitHub to be notified.</p>
+          <!-- endif -->
+        </div>
+        <figure class="code-card" aria-label="An NGSI-LD value with BaseTwin semantics">
+          <figcaption>Every value says what it is and where it came from</figcaption>
+<pre><code>{
+  "id": "urn:ngsi-ld:GridCell:jis4:533946113",
+  "type": "GridCell",
+  "temperature": {
+    "type": "Property", "value": 28.4, "unitCode": "CEL",
+    "observedAt": "2026-07-01T03:00:00Z",
+    <mark>"bt:kind"</mark>: { "value": "estimate" },
+    <mark>"bt:method"</mark>: { "value": "model:idw_temperature@1.0" },
+    <mark>"bt:uncertainty"</mark>: { "value": { "p10": 27.2, "p90": 29.5 } },
+    <mark>"bt:spatialRes"</mark>: { "value": "jis4" },
+    <mark>"bt:provenance"</mark>: { "object": "urn:ngsi-ld:ModelRun:5f47..." }
+  }
+}</code></pre>
+        </figure>
+      </div>
+    </section>
+
+    <section id="why" class="section">
+      <div class="wrap">
+        <p class="eyebrow">Why BaseTwin</p>
+        <h2>A context broker stores entities. A twin needs more.</h2>
+        <p class="section-lead">NGSI-LD gives a twin its entities, relationships and history. It does not say whether a number was measured or simulated, which licence it came under, or what the city looked like before a scenario changed it. BaseTwin adds those services on top of a standard broker and keeps the broker replaceable.</p>
+        <div class="grid grid-3">
+          <article class="card">
+            <h3>Values that explain themselves</h3>
+            <p>Every value carries its kind (observation, estimate, forecast or simulation), quality, uncertainty, method, resolution, validity and provenance. A missing value is never <code>0</code>.</p>
+          </article>
+          <article class="card">
+            <h3>Scenarios that never touch reality</h3>
+            <p>Workspaces overlay each other read-only, from public to customer to scenario. Simulations are written to their own workspace and never overwrite observed state; as-of queries return the twin as it was known at a point in time.</p>
+          </article>
+          <article class="card">
+            <h3>Governance from the first byte</h3>
+            <p>A licence gate at ingest, a catalog of datasets and versions, attributions and policies, and a provenance record of every run. Data can be traced from a published value back to its source.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="products" class="section section-alt">
+      <div class="wrap">
+        <p class="eyebrow">Two products</p>
+        <h2>One codebase, one image, two products</h2>
+        <p class="section-lead">Start with governed data sharing and add the twin when a model or an application needs it. A deployment selects its products with one setting; <code>/v1/capabilities</code> reports what is running.</p>
+        <div class="grid grid-2">
+          <article class="card product">
+            <p class="product-profile"><code>BASETWIN_PROFILE=dataspace</code></p>
+            <h3>Data Space</h3>
+            <p>Governed data sharing from many sources.</p>
+            <ul class="ticks">
+              <li>Catalog of datasets and versions, published as DCAT 3</li>
+              <li>Licences with an ingest gate, attributions, ODRL policies</li>
+              <li>Provenance of every run, exported as PROV-O</li>
+              <li>Immutable raw data, distributions and exports with signed links</li>
+              <li>With a broker: the NGSI-LD context hub with value semantics, domain packs, bridges, pipelines and retention</li>
+            </ul>
+          </article>
+          <article class="card product product-twin">
+            <p class="product-profile"><code>BASETWIN_PROFILE=twin</code> <span class="pill">default</span></p>
+            <h3>BaseTwin</h3>
+            <p>The digital twin on top of Data Space.</p>
+            <ul class="ticks">
+              <li>As-of queries and twin views across the workspace hierarchy</li>
+              <li>Scenario workspaces with impact against a frozen parent state</li>
+              <li>Model plugins with tagged outputs and a run record</li>
+              <li>Grids with resolution-aware aggregation, rasters with a STAC catalog</li>
+              <li>Promotion of dataset versions into the twin, and demotion</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section">
+      <div class="wrap">
+        <p class="eyebrow">Features</p>
+        <h2>What is in the core</h2>
+        <div class="grid grid-3">
+          <article class="card">
+            <h3>Twin data and semantics</h3>
+            <ul>
+              <li>NGSI-LD entities, relationships and temporal history on a context broker (Scorpio)</li>
+              <li>FIWARE Smart Data Models and domain packs</li>
+              <li>A schema registry: allowed kinds, minimum display resolution, official-source rule</li>
+              <li>Workspaces as NGSI-LD tenants with a read-only overlay hierarchy</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Data space and governance</h3>
+            <ul>
+              <li>Datasets and versions with freshness objectives</li>
+              <li>Licences, attributions, ODRL policies, DCAT 3 catalog</li>
+              <li>Exports as CSV, GeoParquet and GeoJSON with signed links</li>
+              <li>Context pipelines triggered by writes; retention of history</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Models and scenarios</h3>
+            <ul>
+              <li>Model plugins read through an as-of context</li>
+              <li>Outputs are tagged estimate, forecast or simulation and linked to a model run</li>
+              <li>Scenario workspaces compute impact against a frozen parent state</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Geospatial</h3>
+            <ul>
+              <li>JIS X 0410 grids with resolution-aware aggregation (GeoJSON, Arrow)</li>
+              <li>Cloud Optimized GeoTIFF rasters with a STAC 1.0 catalog</li>
+              <li>OGC API Features and Tiles (vector tiles)</li>
+              <li>CityGML building import</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Interfaces and extensibility</h3>
+            <ul>
+              <li>Twin API, a controlled NGSI-LD proxy, an admin console</li>
+              <li>Python and TypeScript SDKs</li>
+              <li>Plugin API for connectors, bridges, models, promoters, pipelines and domain packs</li>
+              <li>OIDC authentication with per-workspace grants</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Operations</h3>
+            <ul>
+              <li>A development stack on Docker Compose, a Helm chart for Kubernetes</li>
+              <li>Opt-in OpenTelemetry traces and metrics</li>
+              <li>No owned infrastructure: BaseTwin connects to a broker, a database, an object store and an OIDC issuer by URL</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="architecture" class="section section-alt">
+      <div class="wrap">
+        <p class="eyebrow">Architecture</p>
+        <h2>Three tiers on infrastructure you already run</h2>
+        <p class="section-lead">A kernel loads the two products. The twin depends on Data Space, never the reverse, so Data Space can run alone. The same image serves the API and runs the jobs.</p>
+        <div class="arch" role="img" aria-label="Architecture: applications and data sources connect to BaseTwin, which has three tiers (BaseTwin, Data Space, kernel) and connects to an NGSI-LD broker, PostgreSQL, an S3 object store and an OIDC issuer.">
+          <div class="arch-row arch-outer">
+            <div class="arch-box"><strong>Applications, SDKs, admin console</strong><span>Twin API · NGSI-LD · OGC API · STAC</span></div>
+            <div class="arch-box"><strong>Data sources, other twins</strong><span>connectors · bridges</span></div>
+          </div>
+          <div class="arch-arrow" aria-hidden="true">↓</div>
+          <div class="arch-core">
+            <p class="arch-label">basetwin · API and worker</p>
+            <div class="arch-box arch-twin"><strong>BaseTwin</strong><span>as-of query and twin views · scenarios · models · grids and rasters · promotion</span></div>
+            <div class="arch-row">
+              <div class="arch-box arch-ds"><strong>Data Space: context hub</strong><span>NGSI-LD proxy · value semantics · schema registry · domain packs · bridges · pipelines · retention</span></div>
+              <div class="arch-box arch-ds"><strong>Data Space: storage and governance</strong><span>catalog · licences · provenance · raw data · distributions · exports</span></div>
+            </div>
+            <div class="arch-box arch-kernel"><strong>Kernel</strong><span>runtime and product registry · Plugin API · job runner · authentication · workspaces</span></div>
+          </div>
+          <div class="arch-arrow" aria-hidden="true">↓ <small>connects by URL</small></div>
+          <div class="arch-row arch-outer arch-deps">
+            <div class="arch-box"><strong>NGSI-LD context broker</strong><span>Scorpio</span></div>
+            <div class="arch-box"><strong>PostgreSQL</strong><span>catalog, runs, workspaces</span></div>
+            <div class="arch-box"><strong>S3 object store</strong><span>raw data, exports, rasters</span></div>
+            <div class="arch-box arch-optional"><strong>OIDC issuer</strong><span>optional</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="components" class="section">
+      <div class="wrap">
+        <p class="eyebrow">Scope</p>
+        <h2>Where BaseTwin sits in a digital twin</h2>
+        <p class="section-lead">A digital twin is a digital representation of a physical entity, process or system that uses data and models to represent its state, behaviour and evolution over time. Most architectures describe five components, plus an orchestration layer when several twins work together. BaseTwin is the core of the twin: components 2 to 5.</p>
+        <ol class="components">
+          <li class="component">
+            <span class="pill pill-muted">Outside the core</span>
+            <h3>Physical entity</h3>
+            <p>The real object, environment, process or system. Reached through connectors and bridges.</p>
+          </li>
+          <li class="component is-core">
+            <span class="pill">In BaseTwin</span>
+            <h3>Data and connectivity</h3>
+            <p>Connector plugins for batch ingest, bridge plugins for continuous import, a catalog with a licence gate, promotion into workspaces, pipelines and retention.</p>
+          </li>
+          <li class="component is-core">
+            <span class="pill">In BaseTwin</span>
+            <h3>Digital representation</h3>
+            <p>NGSI-LD entities and relationships with history; geometry, grids, rasters and buildings; mandatory value semantics; workspaces and as-of queries.</p>
+          </li>
+          <li class="component is-core">
+            <span class="pill">In BaseTwin</span>
+            <h3>Models and simulation</h3>
+            <p>Model plugins with fit, predict and validate; outputs tagged by kind with run provenance; scenario workspaces. Simulation engines are plugins by design.</p>
+          </li>
+          <li class="component is-core">
+            <span class="pill">In BaseTwin</span>
+            <h3>Services and applications</h3>
+            <p>Twin API, NGSI-LD, OGC API Features and Tiles, STAC, catalog, provenance and export APIs, SDKs and an admin console. End-user applications are built on these APIs.</p>
+          </li>
+          <li class="component">
+            <span class="pill pill-muted">Partly</span>
+            <h3>Orchestration of several twins</h3>
+            <p>Point-to-point bridges, dataset discovery through the DCAT catalog and semantic alignment through JSON-LD contexts. Federation across brokers and a registry of twins are system-level concerns.</p>
+          </li>
+        </ol>
+        <p class="footnote">The link between the physical and the virtual side is one-way today: from the physical side into the twin. Commands and actuation are not part of the core.</p>
+      </div>
+    </section>
+
+    <section id="standards" class="section section-alt">
+      <div class="wrap">
+        <p class="eyebrow">Standards</p>
+        <h2>Built on open standards, stated honestly</h2>
+        <p class="section-lead">Native means stored or exchanged directly in the standard. Planned means committed and not yet implemented.</p>
+        <dl class="standards">
+          <div><dt>Context and semantics</dt><dd>NGSI-LD (ETSI GS CIM 009) · JSON-LD 1.1 · FIWARE Smart Data Models · OASC MIM1 and MIM2</dd></div>
+          <div><dt>Observations</dt><dd>OGC SensorThings API 1.1 (import bridge)</dd></div>
+          <div><dt>Geospatial</dt><dd>GeoJSON · OGC API Features · OGC API Tiles · Mapbox Vector Tile · JIS X 0410 grid · CityGML (building import)</dd></div>
+          <div><dt>Raster and tabular</dt><dd>Cloud Optimized GeoTIFF · STAC 1.0 · Apache Arrow · GeoParquet · CSV</dd></div>
+          <div><dt>Catalog and governance</dt><dd>W3C DCAT 3 · ODRL 2.2 · SPDX licence identifiers · W3C PROV-O</dd></div>
+          <div><dt>Interfaces and operations</dt><dd>OpenAPI 3.1 · OAuth 2.0 and OpenID Connect · OpenTelemetry · Helm</dd></div>
+          <div class="is-planned"><dt>Planned</dt><dd>DTDL · Eclipse Ditto · W3C WoT Thing Description · Asset Administration Shell · OPC UA and MQTT ingest · 3D Tiles · H3 · Zarr · DCAT-AP · IDSA and Gaia-X connectors</dd></div>
+        </dl>
+        <p class="footnote">Permanent identifiers: the JSON-LD context and vocabulary are published at <a href="{{links.context}}" rel="noopener">w3id.org/basetwin</a>.</p>
+      </div>
+    </section>
+
+    <section id="quickstart" class="section">
+      <div class="wrap">
+        <p class="eyebrow">Quick start</p>
+        <h2>Running in two commands</h2>
+        <!-- if:coreOpen -->
+        <p class="section-lead">Clone the repository and start the full stack with Docker, or run standalone with an in-memory store.</p>
+        <!-- else -->
+        <p class="section-lead">These commands work from a checkout of the repository, which is opening soon.</p>
+        <!-- endif -->
+        <div class="grid grid-2">
+          <figure class="code-card">
+            <figcaption>Full stack · Docker with Compose v2</figcaption>
+<pre><code># build the image, start, migrate, seed
+./run.sh build &amp;&amp; ./run.sh up --seed
+# containers, health, schema revision
+./run.sh status
+# admin console
+open http://localhost:8080/console</code></pre>
+          </figure>
+          <figure class="code-card">
+            <figcaption>Standalone · uv, no Docker</figcaption>
+<pre><code># service mode, in-memory store, example city
+./run.sh --seed
+curl -s localhost:8080/healthz
+# embedded mode: seed and query, no server
+uv run basetwin demo
+&nbsp;</code></pre>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="open-source" class="section section-alt">
+      <div class="wrap">
+        <p class="eyebrow">Open source</p>
+        <h2>An open core you can build on</h2>
+        <div class="grid grid-4 facts">
+          <div class="fact"><strong>Apache-2.0</strong><span>Licence</span></div>
+          <div class="fact"><strong>{{release.version}}</strong><span>Current release, <time datetime="{{release.date}}">{{release.date}}</time></span></div>
+          <div class="fact"><strong>Python 3.12</strong><span>Runtime; SDKs for Python and TypeScript</span></div>
+          <div class="fact"><strong>OpenAPI 3.1</strong><span>Committed API contract</span></div>
+        </div>
+        <p class="section-lead">BaseTwin contains no knowledge about any specific city, site or data source. Deployments add ontologies, connectors and models as plugins through a public Plugin API, without forking the core.</p>
+        <div class="actions">
+          <a class="button" href="{{links.org}}" rel="noopener">BaseTwin on GitHub</a>
+          <a class="button button-ghost" href="{{links.context}}" rel="noopener">JSON-LD context</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="references" class="section">
+      <div class="wrap">
+        <p class="eyebrow">References</p>
+        <h2>Digital twins and data spaces: further reading</h2>
+        <p class="section-lead">Standards, specifications, papers and initiatives that shape the field. The list is maintained in the <a href="{{links.site}}" rel="noopener">site repository</a>; corrections and additions are welcome.</p>
+      {{references}}
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div>
+        <a class="brand" href="{{base}}" aria-label="BaseTwin home">
+          <svg class="brand-mark" viewBox="0 0 80 80" aria-hidden="true"><rect x="6" y="24" width="44" height="44" rx="9" fill="currentColor"/><rect x="28" y="10" width="44" height="44" rx="9" fill="none" stroke="currentColor" stroke-width="6"/></svg>
+          <span class="brand-name">Base<span>Twin</span></span>
+        </a>
+        <p>Open-source digital twin core, built on NGSI-LD.</p>
+      </div>
+      <nav aria-label="Footer">
+        <a href="{{links.org}}" rel="noopener">GitHub</a>
+        <a href="{{links.context}}" rel="noopener">JSON-LD context</a>
+        <a href="{{links.site}}" rel="noopener">Site source</a>
+        <a href="#references">References</a>
+      </nav>
+      <p class="legal">© {{year}} BaseTwin contributors. Software licensed under Apache-2.0. Names of standards and projects belong to their owners.</p>
+    </div>
+  </footer>
+</body>
+</html>

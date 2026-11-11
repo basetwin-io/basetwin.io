@@ -1,0 +1,14 @@
+{
+  "name": "basetwin.io",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Landing page of the BaseTwin project (https://basetwin.io)",
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "serve": "node scripts/serve.mjs",
+    "check:links": "node scripts/check-links.mjs"
+  }
+}

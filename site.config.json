@@ -1,0 +1,15 @@
+{
+  "siteUrl": "https://basetwin.io",
+  "defaultLocale": "en",
+  "locales": ["en"],
+  "release": { "version": "0.5.0", "date": "2026-11-09" },
+  "links": {
+    "org": "https://github.com/basetwin-io",
+    "core": "https://github.com/basetwin-io/BaseTwin",
+    "site": "https://github.com/basetwin-io/basetwin.io",
+    "context": "https://w3id.org/basetwin/"
+  },
+  "flags": {
+    "coreOpen": false
+  }
+}
